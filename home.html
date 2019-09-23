@@ -1,0 +1,24 @@
+<html>
+    <head>
+        <title>AI Chatbot</title>
+        <script src="angular.min.js"></script>
+        <script>
+            var app= angular.module("demoapp",[]);
+            app.controller("democtrl",function($scope,$http){
+                $scope.$watch("name",function(newval,oldval){
+                    var name=newval;
+                    $http.get("https://ng-ai-chatbot.herokuapp.com?name="+name).then(function(d){
+                        $scope.op=d.data;
+                    });
+                })
+            })
+        </script>
+    </head>
+
+    <body ng-app="demoapp">
+        <div ng-controller="democtrl">
+            <input type="text" ng-model="name"><br>
+            <h1>{{op}}</h1>
+        </div>
+    </body>
+</html>
